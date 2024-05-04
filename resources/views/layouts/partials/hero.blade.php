@@ -8,8 +8,23 @@
                         <p class="subtitle">Fresh & Aromatic</p>
                         <h1>Elevate Your Mood</h1>
                         <div class="hero-btns">
-                            <a href="/shop" class="boxed-btn">Coffee Collection</a>
-                            <a href="/contact" class="bordered-btn">Contact Us</a>
+                            @guest
+                                <a href="{{ route('coffees.index') }}" class="boxed-btn">Coffee Collection</a>
+                                <a href="/contact" class="bordered-btn">Contact Us</a>
+                            @endguest
+                            @auth
+
+                                @if (auth()->user()->usertype === 'admin')
+                                    <a href="{{ route('coffees.index') }}" class="boxed-btn">Coffee Collection</a>
+                                    <a href="{{ route('orders.index') }}" class="bordered-btn">Order Data</a>
+                                @elseif (auth()->user()->usertype === 'superadmin')
+                                    <a href="{{ route('coffees.index') }}" class="boxed-btn">Coffee Collection</a>
+                                    <a href="{{ route('users.index') }}" class="bordered-btn">User Data</a>
+                                @else
+                                    <a href="{{ route('coffees.index') }}" class="boxed-btn">Coffee Collection</a>
+                                    <a href="/contact" class="bordered-btn">Contact Us</a>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                 </div>

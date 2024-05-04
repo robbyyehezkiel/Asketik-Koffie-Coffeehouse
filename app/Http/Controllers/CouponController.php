@@ -50,7 +50,7 @@ class CouponController extends Controller
         if ($coupon->type === 'percentage') {
             $discount = ($coupon->value / 100) * $subtotal;
         } elseif ($coupon->type === 'fixed_amount') {
-            $discount = ($coupon->value/1);
+            $discount = $coupon->value;
         }
     
         return $discount;

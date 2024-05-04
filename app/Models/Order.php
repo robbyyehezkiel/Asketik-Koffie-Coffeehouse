@@ -3,17 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Payments;
+use App\Models\Payment;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'customer_name', 'customer_phone', 'note', 'subtotal', 'discount', 'total',
+        'user_id',
+        'note',
+        'status',
+        'subtotal',
+        'discount',
+        'total',
     ];
 
-    public function items()
+    public function user()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function items() // Changed method name from orderItems to items
+    {
+        return $this->hasMany(OrderItem::class); // Corrected relationship method name
     }
 
     public function payment()
@@ -21,3 +35,4 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 }
+

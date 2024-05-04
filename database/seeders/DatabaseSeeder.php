@@ -48,50 +48,61 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $coffees = [
-            ['name' => 'Espresso', 'price' => 35000, 'description' => 'A concentrated coffee beverage brewed by forcing hot water under pressure through finely-ground coffee beans.', 'image' => 'img/products/shop_product.jpg'],
-            [
-                'name' => 'Cappuccino', 'price' => 45000, 'description' => 'An espresso-based coffee drink that originated in Italy, and is traditionally prepared with double espresso, hot milk, and steamed milk foam.',
-                'image' => 'img/products/shop_product.jpg'
-            ],
-            [
-                'name' => 'Latte', 'price' => 50000, 'description' => 'A coffee drink made with espresso and steamed milk.',
-                'image' => 'img/products/shop_product_1.jpg'
-            ],
-            [
-                'name' => 'Americano', 'price' => 40000, 'description' => 'A type of coffee drink prepared by diluting an espresso with hot water, giving it a similar strength to, but different flavor from, traditionally brewed coffee.',
-                'image' => 'img/products/shop_product.jpg'
-            ],
-            [
-                'name' => 'Macchiato', 'price' => 45000, 'description' => 'An espresso coffee drink with a small amount of milk, usually foamed.',
-                'image' => 'img/products/shop_product_2.jpg'
-            ],
-            [
-                'name' => 'Mocha', 'price' => 55000, 'description' => 'A chocolate-flavored variant of a latte.',
-                'image' => 'img/products/shop_product_1.jpg'
-            ],
-            [
-                'name' => 'Flat White', 'price' => 55000, 'description' => 'A coffee drink consisting of espresso with microfoam (steamed milk with small, fine bubbles and a glossy or velvety consistency).',
-                'image' => 'img/products/shop_product_1.jpg'
-            ],
-            [
-                'name' => 'Affogato', 'price' => 60000, 'description' => 'A coffee-based dessert consisting of a scoop of vanilla gelato or ice cream topped or "drowned" with a shot of hot espresso.',
-                'image' => 'img/products/shop_product_2.jpg'
-            ],
-            [
-                'name' => 'Irish Coffee', 'price' => 70000, 'description' => 'A cocktail consisting of hot coffee, Irish whiskey, and sugar, stirred, and topped with cream.',
-                'image' => 'img/products/shop_product_1.jpg'
-            ],
-            [
-                'name' => 'Turkish Coffee', 'price' => 55000, 'description' => 'A traditional method of preparing unfiltered coffee, brewed by boiling finely powdered roast coffee beans in a pot (cezve), possibly with sugar, and serving it into a cup, where the grounds are allowed to settle.',
-                'image' => 'img/products/shop_product_2.jpg'
-            ],
+            // Milk Coffee
+            ['name' => 'Signature', 'price' => 14000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/signature_baru.jpg'],
+            ['name' => 'Latte', 'price' => 15000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/latte_baru.jpg'],
+            ['name' => 'Tiramisu', 'price' => 15000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/tiramisu_baru.jpg'],
+            ['name' => 'Caramel', 'price' => 15000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/caramel_baru.jpg'],
+            ['name' => 'Vanilla', 'price' => 15000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/vanila_baru.jpg'],
+            ['name' => 'Mocha', 'price' => 17000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/mocha_baru.jpg'],
+            ['name' => 'Regal', 'price' => 17000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/Cookies_N_Cream_baru.jpg'],
+            ['name' => 'Cookie', 'price' => 17000, 'category' => 'Milk Coffee', 'image' => 'menu/milk_coffee/cookie_milk_coffee.jpg'],
+        
+            // Manual Brew
+            ['name' => 'Espresso', 'price' => 10000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/expresso_baru.jpg'],
+            ['name' => 'Americano', 'price' => 10000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/americano_baru.jpg'],
+            ['name' => 'Longblack', 'price' => 10000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/longblack_baru.jpg'],
+            ['name' => 'Tubruk', 'price' => 10000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/kopi_tubruk_baru.jpg'],
+            ['name' => 'Vietnam Drip', 'price' => 12000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/vietnam_drip_baru.jpg'],
+            ['name' => 'Sanger', 'price' => 13000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/sanger_baru.jpg'],
+            ['name' => 'V60/Filter', 'price' => 15000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/v60_baru.jpg'],
+            ['name' => 'Japanesse Filter', 'price' => 15000, 'category' => 'Manual Brew', 'image' => 'menu/manual_brew/japanese_filter_baru.jpg'],
+
+            // Non Coffee
+            ['name' => 'Chocolate', 'price' => 13000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/chocolate.jpg'],
+            ['name' => 'Matcha', 'price' => 13000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/matcha_baru.jpg'],
+            ['name' => 'Redvelvet', 'price' => 13000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/red_velvet_baru.jpg'],
+            ['name' => 'Taro', 'price' => 13000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/taro_coffe.jpg'],
+            ['name' => 'Regal', 'price' => 15000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/regal_baru.jpg'],
+            ['name' => 'Cookie', 'price' => 15000, 'category' => 'Non Coffee', 'image' => 'menu/non_coffee/cookie_milk_non_coffie.jpg'],
+
+            // Sparkling
+            ['name' => 'Espresso Tonic', 'price' => 10000, 'category' => 'Sparkling', 'image' => 'menu/sparkling/espresso_tonic_baru.jpg'],
+            ['name' => 'Blue Ocean', 'price' => 13000, 'category' => 'Sparkling', 'image' => 'menu/sparkling/ocean_blue_baru.jpg'],
+            ['name' => 'Gummie Mint', 'price' => 15000, 'category' => 'Sparkling', 'image' => 'menu/sparkling/gummie_mint_baru.jpg'],
+
+            // Foods
+            ['name' => 'Mie Goreng', 'price' => 8000, 'category' => 'Foods', 'image' => 'menu/foods/mie_goreng_baru.jpg'],
+            ['name' => 'Mie Rebus', 'price' => 8000, 'category' => 'Foods', 'image' => 'menu/foods/mie_rebus_baru.jpg'],
+            ['name' => 'Nasgor Ori', 'price' => 12000, 'category' => 'Foods', 'image' => 'menu/foods/nasi_goreng_baru.jpg'],
+            ['name' => 'Nasgor Ebi', 'price' => 12000, 'category' => 'Foods', 'image' => 'menu/foods/nasi_goreng_ebi_baru.jpg'],
+            ['name' => 'Mie Jebew', 'price' => 15000, 'category' => 'Foods', 'image' => 'menu/foods/mie_jebew_baru.jpg'],
+            ['name' => 'Seblak', 'price' => 15000, 'category' => 'Foods', 'image' => 'menu/foods/seblak_baru.jpg'],
+            ['name' => 'MieNas', 'price' => 16000, 'category' => 'Foods', 'image' => 'menu/foods/mie_nas.jpg'],
+        
+             // Snacks
+            ['name' => 'Sosis Solo', 'price' => 10000, 'category' => 'Snacks', 'image' => 'menu/snacks/sosis_solo_baru.jpg'],
+            ['name' => 'Lumpia', 'price' => 10000, 'category' => 'Snacks', 'image' => 'menu/snacks/lumpia_baru.jpg'],
+            ['name' => 'Kentang', 'price' => 10000, 'category' => 'Snacks', 'image' => 'menu/snacks/kentang_baru.jpg'],
+            ['name' => 'Nugget', 'price' => 12000, 'category' => 'Snacks', 'image' => 'menu/snacks/nugget_baru.jpg'],
+
         ];
 
         foreach ($coffees as $coffeeData) {
             Coffee::factory()->create([
                 'name' => $coffeeData['name'],
                 'price' => $coffeeData['price'],
-                'description' => $coffeeData['description'],
+                'category' => $coffeeData['category'],
                 'image' => $coffeeData['image'],
             ]);
         }

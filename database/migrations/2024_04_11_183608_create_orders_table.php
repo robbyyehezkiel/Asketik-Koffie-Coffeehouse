@@ -11,9 +11,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name');
-            $table->string('customer_phone');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('note')->nullable();
+            $table->string('status')->default('pending');
             $table->decimal('subtotal', 8, 2);
             $table->decimal('discount', 8, 2);
             $table->decimal('total', 8, 2);

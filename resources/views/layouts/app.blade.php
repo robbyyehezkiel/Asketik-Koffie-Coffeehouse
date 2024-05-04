@@ -18,6 +18,7 @@
         @endif
     </title>
 
+    <script src="https://kit.fontawesome.com/f6d1b8e2a4.js" crossorigin="anonymous"></script>
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <!-- google font -->
@@ -64,6 +65,7 @@
         @include('layouts.partials.copyright')
     @endif
 
+    @include('layouts.scripts.confirm_delete')
     <!-- jquery -->
     <script src="assets/js/jquery-1.11.3.min.js"></script>
     <!-- bootstrap -->

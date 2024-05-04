@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="pageTitle">
+        {{ $pageTitle }}
+    </x-slot>
+
+    @include('layouts.partials.breadcrumb')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}

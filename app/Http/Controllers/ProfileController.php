@@ -18,6 +18,8 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'pageTitle' => 'Edit Profile',
+            'subPageTitle' => 'Edit Your Profile',
         ]);
     }
 

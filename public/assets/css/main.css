@@ -2614,6 +2614,24 @@ tr.total-data td strong {
   font-size: 15px;
 }
 
+.coupon-form-wrap form p input[type=number] {
+  border: 1px solid #ddd;
+  color: #051922;
+  padding: 15px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.coupon-form-wrap form p input[type=file] {
+  border: 1px solid #ddd;
+  color: #051922;
+  padding: 15px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
 .card.single-accordion {
   margin-bottom: 15px;
   border-bottom: 1px solid #EFEFEF !important;
@@ -2673,6 +2691,10 @@ tr.total-data td strong {
   padding: 15px;
   width: 100%;
   border-radius: 3px;
+}
+
+.billing-address-form p input[type="number"] {
+  margin-bottom: 0; /* Reset margin bottom for number inputs */
 }
 
 .billing-address-form form p textarea {
@@ -2904,4 +2926,28 @@ input::-webkit-inner-spin-button {
   display: block;
   margin: 0 auto; /* This centers the button horizontally */
   /* You can also add additional styling here, such as padding or width */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* Adjust margin as needed */
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crud-button {
+  height: 50px;
+
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
 }

@@ -6,8 +6,18 @@
     @include('layouts.partials.breadcrumb')
 
     @if ($cartItems->isEmpty())
-        <div class="container mt-150 mb-150">
-            <p>No items in the cart</p>
+        <div id="cart_empty" class="cart-section mt-150 mb-150 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <img id="empty_cart_image" src="{{ asset('assets/img/cart_empty.gif') }}" alt="Empty Cart Image"
+                            class="mb-4">
+                        <h3 class="mb-3">Your cart is empty!</h3>
+                        <p class="text-muted">Looks like you haven't added any items to your cart yet.</p>
+                        <a href="{{ route('coffees.index') }}" class="btn form-button">Start Shopping</a>
+                    </div>
+                </div>
+            </div>
         </div>
     @else
         <div class="cart-section mt-150 mb-150">
@@ -36,8 +46,9 @@
                                                 </button>
                                             </td>
                                             <td class="product-image">
-                                                <img src="{{ asset('assets/' . $cartItem->coffee->image) }}"
-                                                    alt="{{ $cartItem->coffee->name }}">
+                                                <img src="{{ asset('storage/' . $cartItem->coffee->image) }}"
+                                                    alt="{{ $cartItem->coffee->name }}"
+                                                    style="width: 50px; height: 50px;">
                                             </td>
                                             <td class="product-name">{{ $cartItem->coffee->name }}</td>
                                             <td class="product-price">${{ $cartItem->coffee->price }}</td>
@@ -68,6 +79,7 @@
                             </table>
                         </div>
                     </div>
+
                     <div class="col-lg-4">
                         <div class="total-section mb-4">
                             <table class="total-table">
@@ -97,7 +109,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -106,6 +117,7 @@
                             <div class="accordion" id="accordionExample">
 
                                 <form id="checkoutForm" action="{{ route('checkout.store') }}" method="POST">
+                                    @csrf
                                     <div class="card single-accordion">
                                         <div class="card-header" id="headingOne">
                                             <h5 class="mb-0">
@@ -121,7 +133,6 @@
                                             data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <div class="billing-address-form">
-                                                    @csrf
                                                     <!-- Hidden input for cart items -->
                                                     @foreach ($cartItems as $cartItem)
                                                         <input type="hidden"
@@ -140,10 +151,6 @@
                                                         name="getCheckoutPrice" id="getCheckoutPrice">
                                                     <input type="hidden" class="getDiscount" name="getDiscount"
                                                         id="getDiscount">
-                                                    <p><input type="text" name="customer_name" placeholder="Name"
-                                                            required></p>
-                                                    <p><input type="tel" name="customer_phone"
-                                                            placeholder="Phone" required></p>
                                                     <p>
                                                         <textarea name="bill" cols="30" rows="10" placeholder="Note"></textarea>
                                                     </p>
@@ -229,7 +236,6 @@
                 </div>
             </div>
         </div>
-        </div>
     @endif
 
     <x-slot name="footer">
@@ -249,10 +255,49 @@
         const getDiscountInput = document.getElementById('getDiscount');
         const getCheckoutPriceInput = document.getElementById('getCheckoutPrice');
 
-        // Add click event listener to the checkout button
         document.getElementById('checkoutButton').addEventListener('click', function() {
-            // Trigger form submission when the button is clicked
-            document.getElementById('checkoutForm').submit();
+            // Check if any required fields are empty
+            const cardNumberInput = document.querySelector('input[name="card_number"]');
+            const expirationDateInput = document.querySelector('input[name="expiration_date"]');
+            const cvvInput = document.querySelector('input[name="cvv"]');
+
+            const emptyFields = [];
+            if (cardNumberInput.value.trim() === '') {
+                emptyFields.push({
+                    input: cardNumberInput,
+                    fieldName: 'Card Number'
+                });
+            }
+            if (expirationDateInput.value.trim() === '') {
+                emptyFields.push({
+                    input: expirationDateInput,
+                    fieldName: 'Expiration Date'
+                });
+            }
+            if (cvvInput.value.trim() === '') {
+                emptyFields.push({
+                    input: cvvInput,
+                    fieldName: 'CVV'
+                });
+            }
+
+            // Remove existing error messages and red borders
+            document.querySelectorAll('.form-error-message').forEach(errorMsg => errorMsg.remove());
+            document.querySelectorAll('.is-invalid').forEach(input => input.classList.remove(
+                'is-invalid'));
+
+            if (emptyFields.length > 0) {
+                emptyFields.forEach(field => {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.textContent = `Please input ${field.fieldName}`;
+                    errorMessage.classList.add('form-error-message', 'text-danger');
+                    field.input.parentNode.appendChild(errorMessage);
+                    field.input.classList.add('is-invalid');
+                });
+            } else {
+                // Trigger form submission when all required fields are filled
+                document.getElementById('checkoutForm').submit();
+            }
         });
 
         function calculatePrices(data = null) {
@@ -325,16 +370,6 @@
 
         function applyCoupon() {
             const formData = new FormData(applyCouponForm);
-            const couponCode = formData.get('coupon_code').trim();
-
-            if (couponCode === '') {
-                discountElement.textContent = '$0.00';
-                calculatePrices();
-                updateCheckoutPrice(); // Update the checkout price after discount is applied
-                showCouponMessage('info', 'No coupon code applied.');
-                return;
-            }
-
             fetch('{{ route('apply.coupon') }}', {
                     method: 'POST',
                     body: formData
@@ -349,10 +384,13 @@
                     if (data.error) {
                         showCouponMessage('error', data.error);
                     } else {
+                        // Update prices based on response from server
                         subtotalElement.textContent = '$' + data.subtotal.toFixed(2);
                         discountElement.textContent = '$' + data.discount.toFixed(2);
                         totalPriceElement.textContent = '$' + data.totalPrice.toFixed(2);
-                        updateCheckoutPrice(); // Update the checkout price after coupon is applied
+                        // Update checkout price
+                        updateCheckoutPrice();
+                        // Show coupon message
                         showCouponMessage('success', 'Coupon applied successfully.');
                     }
                 })
@@ -361,6 +399,16 @@
                     showCouponMessage('error', 'An error occurred while processing your request.');
                 });
         }
+
+        applyCouponForm.addEventListener('submit', event => {
+            event.preventDefault();
+            applyCoupon();
+        });
+
+        applyCouponForm.addEventListener('submit', event => {
+            event.preventDefault();
+            applyCoupon();
+        });
 
         function deleteCartItem(cartItemId) {
             fetch(`{{ route('cart.destroy', '') }}/${cartItemId}`, {
@@ -416,11 +464,6 @@
                 const cartItemId = button.getAttribute('data-id');
                 deleteCartItem(cartItemId);
             });
-        });
-
-        applyCouponForm.addEventListener('submit', event => {
-            event.preventDefault();
-            applyCoupon();
         });
 
         quantityInputs.forEach(input => {

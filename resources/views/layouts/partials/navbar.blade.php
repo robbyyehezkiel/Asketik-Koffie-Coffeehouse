@@ -14,39 +14,35 @@
                     <nav class="main-menu">
                         <ul>
                             <li class="current-list-item"><a href="/">Home</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="#">Event</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Event</a></li>
-                                    <li><a href="#">Single Event</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/contact">Contact</a></li>
                             @guest
-                                <li><a href="/shop">Shop</a>
-                                </li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/coffees">Shop</a></li>
+                                <li><a href="/contact">Contact</a></li>
                             @endguest
 
                             @auth
                                 @if (auth()->user()->usertype === 'admin')
-                                    <li><a href="/shop">Shop</a></li>
-                                    <li><a href="#">Data</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">User</a></li>
-                                            <li><a href="#">Product</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{ route('coffees.index') }}">Shop</a></li>
+                                    <li><a href="{{ route('orders.index') }}">Orders</a></li>
                                 @elseif (auth()->user()->usertype === 'customer')
-                                    <li><a href="/shop">Shop</a>
+                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/contact">Contact</a></li>
+                                    </li>
+                                    <li><a href="/coffees">Shop</a>
                                         <ul class="sub-menu">
-                                            <li><a href="/shop">Shop</a></li>
-                                            <li><a href="/checkout">Check Out</a></li>
-                                            <li><a href="/single-product">Single Product</a></li>
+                                            <li><a href="/coffees">Shop</a></li>
                                             <li><a href="/cart">Cart</a></li>
                                         </ul>
                                     </li>
+                                @elseif (auth()->user()->usertype === 'superadmin')
+                                    <li>
+                                        <a href="/coffees">Coffee</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.index') }}">User</a>
+                                    </li>
                                 @endif
-                                <li><a href="/shop">{{ Auth::user()->name }}</a>
+                                <li><a href="/coffees">{{ Auth::user()->name }}</a>
                                     <ul class="sub-menu">
 
                                         <li><a href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
