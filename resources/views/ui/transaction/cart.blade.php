@@ -151,6 +151,12 @@
                                                         name="getCheckoutPrice" id="getCheckoutPrice">
                                                     <input type="hidden" class="getDiscount" name="getDiscount"
                                                         id="getDiscount">
+                                                    <p><input type="text" id="order_name" name="order_name"
+                                                            placeholder="Enter your card number" required></p>
+                                                    <p>
+                                                    <p><input type="text" id="order_time" name="order_time"
+                                                            placeholder="Enter your card number" required></p>
+                                                    <p>
                                                     <p>
                                                         <textarea name="bill" cols="30" rows="10" placeholder="Note"></textarea>
                                                     </p>
@@ -175,16 +181,21 @@
                                             <div class="card-body">
                                                 <div class="billing-address-form">
                                                     <form action="/">
+                                                        <p>
+                                                            <select id="bank_select" name="bank_select">
+                                                                <option value="">Select Bank</option>
+                                                                <option value="BRI">BRI</option>
+                                                                <option value="BNI">BNI</option>
+                                                                <option value="BCA">BCA</option>
+                                                                <option value="Mandiri">Mandiri</option>
+                                                                <option value="Ovo">Ovo</option>
+                                                                <option value="Dana">Dana</option>
+                                                                <option value="Gopay">Gopay</option>
+                                                            </select>
+                                                        </p>
                                                         <p><input type="text" id="card_number" name="card_number"
                                                                 placeholder="Enter your card number" required></p>
                                                         <p>
-                                                            <input type="text" id="expiration_date"
-                                                                name="expiration_date" placeholder="MM/YYYY" required>
-                                                        </p>
-                                                        <p>
-                                                            <input type="text"id="cvv" name="cvv"
-                                                                placeholder="Enter CVV" required>
-                                                        </p>
                                                     </form>
                                                 </div>
                                             </div>
@@ -254,30 +265,28 @@
         const getSubTotalPriceInput = document.getElementById('getSubTotalPrice');
         const getDiscountInput = document.getElementById('getDiscount');
         const getCheckoutPriceInput = document.getElementById('getCheckoutPrice');
+        const bankSelect = document.getElementById('bank_select');
+        const cardNumberInput = document.getElementById('card_number');
+
+        bankSelect.addEventListener('change', function() {
+            const selectedBank = bankSelect.value;
+            if (selectedBank === 'Dana') {
+                cardNumberInput.placeholder = 'Enter your phone number';
+            } else {
+                cardNumberInput.placeholder = 'Enter your card number';
+            }
+        });
+
 
         document.getElementById('checkoutButton').addEventListener('click', function() {
             // Check if any required fields are empty
             const cardNumberInput = document.querySelector('input[name="card_number"]');
-            const expirationDateInput = document.querySelector('input[name="expiration_date"]');
-            const cvvInput = document.querySelector('input[name="cvv"]');
 
             const emptyFields = [];
             if (cardNumberInput.value.trim() === '') {
                 emptyFields.push({
                     input: cardNumberInput,
                     fieldName: 'Card Number'
-                });
-            }
-            if (expirationDateInput.value.trim() === '') {
-                emptyFields.push({
-                    input: expirationDateInput,
-                    fieldName: 'Expiration Date'
-                });
-            }
-            if (cvvInput.value.trim() === '') {
-                emptyFields.push({
-                    input: cvvInput,
-                    fieldName: 'CVV'
                 });
             }
 

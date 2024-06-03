@@ -13,59 +13,67 @@
                     <!-- logo -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a href="/">Home</a></li>
+                            <li class="{{ Request::is('/') ? 'current-list-item' : '' }}"><a href="/">Home</a>
+                            </li>
                             @guest
-                                <li><a href="/about">About</a></li>
-                                <li><a href="/coffees">Shop</a></li>
-                                <li><a href="/contact">Contact</a></li>
+                                <li class="{{ Request::is('about') ? 'current-list-item' : '' }}"><a
+                                        href="/about">About</a></li>
+                                <li class="{{ Request::is('coffees') ? 'current-list-item' : '' }}"><a
+                                        href="/coffees">Shop</a></li>
+                                <li class="{{ Request::is('contact') ? 'current-list-item' : '' }}"><a
+                                        href="/contact">Contact</a></li>
                             @endguest
 
                             @auth
                                 @if (auth()->user()->usertype === 'admin')
-                                    <li><a href="{{ route('coffees.index') }}">Shop</a></li>
-                                    <li><a href="{{ route('orders.index') }}">Orders</a></li>
+                                    <li class="{{ Request::is('coffees') ? 'current-list-item' : '' }}"><a
+                                            href="{{ route('coffees.index') }}">Shop</a></li>
+                                    <li class="{{ Request::is('orders') ? 'current-list-item' : '' }}"><a
+                                            href="{{ route('orders.index') }}">Orders</a></li>
                                 @elseif (auth()->user()->usertype === 'customer')
-                                    <li><a href="/about">About</a></li>
-                                    <li><a href="/contact">Contact</a></li>
-                                    </li>
-                                    <li><a href="/coffees">Shop</a>
+                                    <li class="{{ Request::is('about') ? 'current-list-item' : '' }}"><a
+                                            href="/about">About</a></li>
+                                    <li class="{{ Request::is('contact') ? 'current-list-item' : '' }}"><a
+                                            href="/contact">Contact</a></li>
+                                    <li class="{{ Request::is('coffees') ? 'current-list-item' : '' }}">
+                                        <a href="/coffees">Shop</a>
                                         <ul class="sub-menu">
-                                            <li><a href="/coffees">Shop</a></li>
-                                            <li><a href="/cart">Cart</a></li>
+                                            <li class="{{ Request::is('coffees') ? 'current-list-item' : '' }}"><a
+                                                    href="/coffees">Shop</a></li>
+                                            <li class="{{ Request::is('cart') ? 'current-list-item' : '' }}"><a
+                                                    href="/cart">Cart</a></li>
                                         </ul>
                                     </li>
                                 @elseif (auth()->user()->usertype === 'superadmin')
-                                    <li>
-                                        <a href="/coffees">Coffee</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('users.index') }}">User</a>
-                                    </li>
+                                    <li class="{{ Request::is('coffees') ? 'current-list-item' : '' }}"><a
+                                            href="/coffees">Coffee</a></li>
+                                    <li class="{{ Request::is('users') ? 'current-list-item' : '' }}"><a
+                                            href="{{ route('users.index') }}">User</a></li>
                                 @endif
-                                <li><a href="/coffees">{{ Auth::user()->name }}</a>
+                                <li class="{{ Request::is('profile*') ? 'current-list-item' : '' }}">
+                                    <a href="/coffees">{{ Auth::user()->name }}</a>
                                     <ul class="sub-menu">
-
                                         <li><a href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
                                         <li>
                                             <!-- Authentication -->
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
                                                 <a href="route('logout')"
-                                                    onclick="event.preventDefault();this.closest('form').submit();">
-                                                    Logout
-                                                </a>
+                                                    onclick="event.preventDefault();this.closest('form').submit();">Logout</a>
                                             </form>
                                         </li>
                                     </ul>
                                 </li>
                             @else
-                                <li><a href="{{ route('login') }}">Login</a>
+                                <li class="{{ Request::is('login') ? 'current-list-item' : '' }}">
+                                    <a href="{{ route('login') }}">Login</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{ route('login') }}">Login</a></li>
                                         <li><a href="{{ route('register') }}">Register</a></li>
                                     </ul>
                                 </li>
                             @endauth
+
 
                         </ul>
                     </nav>

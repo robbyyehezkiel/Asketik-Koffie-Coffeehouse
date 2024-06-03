@@ -14,7 +14,7 @@
                             <tr class="table-head-row">
                                 <th class="product-name">Order ID: <b>{{ $order->id }}</b></th>
                                 <th class="product-quantity">Customer Id: <b>{{ $order->user->id }}</b></th>
-                                <th class="product-price">Customer Name: <b>{{ $order->user->name }}</b></th>
+                                <th class="product-price">Customer Name: <b>{{ $order->order_name }}</b></th>
                                 <th class="product-price">Total Price: <b>Rp. {{ $order->total }}</b></th>
                             </tr>
                         </thead>

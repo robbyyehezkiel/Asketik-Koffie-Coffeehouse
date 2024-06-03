@@ -12,6 +12,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('order_name')->nullable();
+            $table->string('order_time')->nullable();
             $table->text('note')->nullable();
             $table->string('status')->default('pending');
             $table->decimal('subtotal', 8, 2);
@@ -32,9 +34,8 @@ class CreateOrdersTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->string('bank_select');
             $table->string('card_number');
-            $table->string('expiration_date');
-            $table->string('cvv');
             // Add more payment fields as needed
             $table->timestamps();
         });

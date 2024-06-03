@@ -82,6 +82,8 @@ class OrderController extends Controller
             $userId = auth()->id();
             $order = Order::create([
                 'user_id' => $userId,
+                'order_name' => $request->input('order_name'),
+                'order_time' => $request->input('order_time'),
                 'note' => $request->input('bill'),
                 'subtotal' => $request->input('getSubTotalPrice'),
                 'discount' => $request->input('getDiscount'),
@@ -98,9 +100,8 @@ class OrderController extends Controller
             }
     
             $order->payment()->create([
+                'bank_select' => $request->input('bank_select'),
                 'card_number' => $request->input('card_number'),
-                'expiration_date' => $request->input('expiration_date'),
-                'cvv' => $request->input('cvv'),
             ]);
     
             Cart::where('user_id', auth()->id())->delete();
